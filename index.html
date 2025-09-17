@@ -63,6 +63,24 @@
       text-align: right;
       border-top: 1px solid #333;
       padding-top: 1em;
+     
+      /* 戻るボタン */
+  .back-btn-wrap {
+    text-align: center;
+    margin: 40px 0;
+  }
+  .back-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .back-btn:hover {
+    background: #a93226;
     }
   </style>
 </head>
@@ -94,9 +112,10 @@
       <p>新卒であり、現時点で特に問題は見受けられない。まだ業務経験が浅いため、今後の成長を見守る必要あり。研修・OJTによる支援を継続することが望ましい。</p>
     </div>
   </div>
-
-  <footer>
-    狭間書房 内部記録
-  </footer>
+  
+   <!-- 戻るボタン -->
+  <div class="back-btn-wrap">
+    <button class="back-btn" onclick="history.back()">← 一つ前のページに戻る</button>
+  </div>
 </body>
 </html>
