@@ -57,32 +57,41 @@
       text-indent: 1em;
     }
     footer {
-      margin-top: 3em;
-      font-size: 0.9em;
-      color: #999;
-      text-align: right;
-      border-top: 1px solid #333;
-      padding-top: 1em;
-     
-      /* 戻るボタン */
-  .back-btn-wrap {
-    text-align: center;
-    margin: 40px 0;
-  }
-  .back-btn {
-    background: #454545;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    transition: background 0.3s;
-  }
-  .back-btn:hover {
-    background: #454545;
-  }
+  margin-top: 3em;
+  font-size: 0.9em;
+  color: #999;
+  text-align: right;
+  border-top: 1px solid #333;
+  padding-top: 1em;
+}
+
+/* 戻るボタン */
+.back-btn-wrap {
+  text-align: center;
+  margin: 60px 0 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+  color: #eaeaea;
+  background: #262626;
+  border: 1px solid #2f2f2f;
+  border-radius: 0;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: 0.25s ease;
+  text-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+
+.back-btn:hover {
+  background: #383838;
+  border-color: #4a4a4a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+}
   </style>
 </head>
 <body>
