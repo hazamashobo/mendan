@@ -2,24 +2,156 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>部下との面談記録 | 狭間書房</title>
   <style>
-    body {
-      background-color: #0f0f0f;
-      color: #f2f2f2;
-      font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+    html, body {
+      height: 100%;
       margin: 0;
-      padding: 3em;
-      line-height: 1.9;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
-    h1 {
+
+    body {
+      background-color: #111;
+      color: #f5f5f5;
+      font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+      line-height: 1.8;
+    }
+
+    /* ヘッダー */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      background-color: #666;
+      color: #fff;
+      flex-shrink: 0;
+      gap: 2em;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .title-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    .title-wrapper a {
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .title-wrapper a:hover h1 {
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      border: none;
+      font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+      font-weight: 700;
+    }
+    .subtitle {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-size: 1em;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* 検索 */
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .search form {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .search input {
+      padding: 4px;
+      border: 2px solid #333;
+      border-radius: 4px;
+      width: 150px;
+      background-color: #fff;
+      color: #333;
+    }
+    .search input::placeholder {
+      color: #333aa;
+    }
+    .search button {
+      padding: 4px 6px;
+      border-radius: 4px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .search button:hover {
+      background-color: #222;
+    }
+
+    /* ナビゲーション */
+    nav {
+      text-align: center;
+      padding: 1em 0;
+      background-color: #f0f0f0;
+      flex-shrink: 0;
+      overflow-x: auto;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    nav a {
+      color: #003366;
+      margin: 0 1em;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      color: #666;
+    }
+    nav a.active {
+      color: #666;
+      border-bottom: 2px solid #666;
+    }
+
+    /* メインコンテンツ */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 0 2em;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    main > h1 {
       font-size: 1.8em;
       margin-bottom: 1.5em;
       border-bottom: 2px solid #444;
       padding-bottom: 0.4em;
       text-align: center;
       letter-spacing: 0.08em;
+      color: #f5f5f5;
     }
+
     .report {
       max-width: 850px;
       margin: 0 auto;
@@ -27,105 +159,313 @@
       padding: 2em 2.5em;
       border: 1px solid #333;
       box-shadow: 0 0 12px rgba(0,0,0,0.6);
+      box-sizing: border-box;
     }
+
     .meta {
       font-size: 0.95em;
       margin-bottom: 2em;
       color: #bbb;
-      border-left: 3px solid #32a9cd;
+      border-left: 3px solid #f5f5f5;
       padding-left: 1em;
+      line-height: 1.6;
     }
+
     .intro {
       margin-bottom: 2em;
       padding: 1em 1.5em;
       background: #141414;
       font-style: italic;
       color: #ccc;
+      line-height: 1.8;
     }
+
     .record {
       margin: 2em 0;
     }
+
     .record h2 {
       font-size: 1.2em;
-      color: #ffffffff;
+      color: #ffffff;
       margin: 1.5em 0 0.5em;
       border-bottom: 1px dashed #444;
       padding-bottom: 0.3em;
     }
+
     .record p {
       margin: 0.5em 0 1em;
       text-indent: 1em;
+      word-wrap: break-word;
     }
+
+    /* 戻るボタン */
+    .back-btn-wrap {
+      text-align: center;
+      margin: 3em 0 2em;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+      color: #eaeaea;
+      background: #262626;
+      border: 1px solid #2f2f2f;
+      border-radius: 0;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      transition: 0.25s ease;
+      text-shadow: 0 0 6px rgba(0,0,0,0.4);
+    }
+
+    .back-btn:hover {
+      background: #383838;
+      border-color: #4a4a4a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    /* フッター */
     footer {
-  margin-top: 3em;
-  font-size: 0.9em;
-  color: #999;
-  text-align: right;
-  border-top: 1px solid #333;
-  padding-top: 1em;
-}
+      background-color: #666;
+      color: #ffffff;
+      text-align: center;
+      padding: 1em;
+      flex-shrink: 0;
+      margin-top: auto;
+      box-sizing: border-box;
+      width: 100%;
+    }
 
-/* 戻るボタン */
-.back-btn-wrap {
-  text-align: center;
-  margin: 60px 0 20px;
-}
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      header {
+        padding: 1em;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: 1em;
+      }
 
-.back-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  font-size: 1rem;
-  font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
-  color: #eaeaea;
-  background: #262626;
-  border: 1px solid #2f2f2f;
-  border-radius: 0;
-  cursor: pointer;
-  letter-spacing: 0.08em;
-  transition: 0.25s ease;
-  text-shadow: 0 0 6px rgba(0,0,0,0.4);
-}
+      header h1 {
+        font-size: 2em;
+      }
 
-.back-btn:hover {
-  background: #383838;
-  border-color: #4a4a4a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
-}
+      .title-wrapper {
+        width: 100%;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .search form {
+        width: 100%;
+        display: flex;
+      }
+
+      .search input {
+        width: 100%;
+        flex: 1;
+      }
+
+      nav a {
+        margin: 0 0.5em;
+        font-size: 0.9em;
+      }
+
+      main {
+        padding: 0 1em;
+        margin: 1em auto;
+      }
+
+      main > h1 {
+        font-size: 1.5em;
+        margin-bottom: 1.2em;
+      }
+
+      .report {
+        padding: 1.5em 1.8em;
+      }
+
+      .meta {
+        font-size: 0.9em;
+        margin-bottom: 1.5em;
+      }
+
+      .intro {
+        padding: 0.8em 1.2em;
+        font-size: 0.95em;
+      }
+
+      .record h2 {
+        font-size: 1.1em;
+        margin: 1.2em 0 0.4em;
+      }
+
+      .record p {
+        font-size: 0.95em;
+      }
+
+      .back-btn-wrap {
+        margin: 2em 0 1.5em;
+      }
+
+      .back-btn {
+        padding: 10px 24px;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        gap: 0.5em;
+      }
+
+      header h1 {
+        font-size: 1.5em;
+      }
+
+      .subtitle {
+        font-size: 0.9em;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .search input {
+        width: 100%;
+        padding: 0.5em;
+      }
+
+      .search button {
+        padding: 0.5em 0.8em;
+        font-size: 0.9em;
+      }
+
+      nav a {
+        margin: 0 0.3em;
+        font-size: 0.8em;
+      }
+
+      main {
+        padding: 0 0.8em;
+        margin: 0.8em auto;
+      }
+
+      main > h1 {
+        font-size: 1.3em;
+        margin-bottom: 1em;
+        letter-spacing: 0.05em;
+      }
+
+      .report {
+        padding: 1.2em 1.5em;
+      }
+
+      .meta {
+        font-size: 0.85em;
+        margin-bottom: 1.2em;
+        padding-left: 0.8em;
+      }
+
+      .intro {
+        padding: 0.8em 1em;
+        font-size: 0.9em;
+        margin-bottom: 1.5em;
+      }
+
+      .record h2 {
+        font-size: 1em;
+        margin: 1em 0 0.3em;
+      }
+
+      .record p {
+        font-size: 0.9em;
+        text-indent: 0.8em;
+        margin: 0.4em 0 0.8em;
+      }
+
+      .back-btn-wrap {
+        margin: 1.5em 0 1em;
+      }
+
+      .back-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>1on1面談記録</h1>
+  <header>
+    <div class="title-wrapper">
+      <a href="https://hazamashobo.github.io/main/index.html">
+        <h1>狭間書房</h1>
+        <p class="subtitle">Hazama Publishing</p>
+      </a>
+    </div>
+    <div class="search">
+      <form action="https://hazamashobo.github.io/result/" method="get">
+        <input type="text" id="searchInput" name="q" placeholder="キーワード入力">
+        <button type="submit">検索</button>
+      </form>
+    </div>
+  </header>
 
-  <div class="report">
-    <div class="meta">
-      記録者：立城 順平（編集部）<br>
-      記録日：2025年5月16日
+  <nav>
+    <a href="https://hazamashobo.github.io/main/index.html">ホーム</a>
+    <a href="https://hazamashobo.github.io/company/index.html">狭間書房について</a>
+    <a href="https://hazamashobo.github.io/books/index.html">刊行物</a>
+    <a href="https://hazamashobo.github.io/contact/index.html">お問い合わせ</a>
+  </nav>
+
+  <main>
+    <h1>1on1面談記録</h1>
+
+    <div class="report">
+      <div class="meta">
+        記録者：立城 順平（編集部）<br>
+        記録日：2025年5月16日
+      </div>
+
+      <div class="intro">
+        所感：今回の面談は、部署内の業務状況や各人の生活環境の変化を確認する目的で実施した。
+        それぞれが抱える課題や希望に対して、組織として今後どのように対応していくべきかを改めて考えさせられる内容となった。
+        特に若手社員に関しては、勤務環境やメンタル面への配慮が求められると感じる。
+      </div>
+
+      <div class="record">
+        <h2>外山 昴</h2>
+        <p>面談中、特筆すべき問題は確認されず。勤務態度・成果ともに安定しており、特に懸念はない。引き続き現行の業務体制を維持してよいと判断。</p>
+
+        <h2>福井 里帆</h2>
+        <p>近々結婚の予定があり、今後の業務について要相談。本人は前向きな姿勢を示した。社内的に特段の問題はないが、生活の変化による勤務状況への影響について要相談。めでたい話題であり、祝意を伝えた。</p>
+
+        <h2>湯田 伊織</h2>
+        <p>出版物の「デジタル化」に関して具体的な相談を受けた。本人は効率化への強い関心を持っており、改善案を積極的に検討している様子。今後、全社的な取り組みに繋げられる可能性あり。しかし編集長の意向に反しており、実施は難しい。</p>
+
+        <h2>赤羽 義人</h2>
+        <p>特に問題なし。同じ宮城県出身ということで盛り上がった。現在の職務において安定した成果を出しており、面談時も落ち着いた態度であった。更新後のパスワードは地元のプロ野球チームにいる鳥の名前にしたとのこと。各書類の更新が必要。</p>
+
+        <h2>下野 凛</h2>
+        <p>朝に弱く、出勤対応が難しいことからリモートワークを増やしたい旨を希望。体調面や生活リズムへの配慮が必要と考えられるため、柔軟な勤務体制の検討が望ましい。本人の意欲は高く、環境を整えれば成果向上の可能性あり。</p>
+
+        <h2>堀北 大樹</h2>
+        <p>新卒であり、現時点で特に問題は見受けられない。まだ業務経験が浅いため、今後の成長を見守る必要あり。研修・OJTによる支援を継続することが望ましい。</p>
+      </div>
     </div>
-<div class="intro">
-      今回の面談は、部署内の業務状況や各人の生活環境の変化を確認する目的で実施した。  
-      それぞれが抱える課題や希望が浮き彫りになり、組織として今後どのように対応していくべきかを改めて考えさせられる内容となった。  
-      特に若手社員に関しては、勤務環境やメンタル面への配慮が求められると感じる。
+
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="history.back()">戻る</button>
     </div>
-<div class="record">
-<h2>外山 昴</h2>
-      <p>面談中、特筆すべき問題は確認されず。勤務態度・成果ともに安定しており、特に懸念はない。引き続き現行の業務体制を維持してよいと判断。</p>
-<h2>福井 里帆</h2>
-      <p>近々結婚の予定があり、今後の業務について要相談。本人は前向きな姿勢を示した。社内的には特段の問題はないが、生活の変化による勤務状況への影響については今後も注視が必要。めでたい話題であり、祝意を伝えた。</p>
-<h2>湯田 伊織</h2>
-      <p>出版物の「デジタル化」に関して具体的な相談を受けた。本人は効率化への強い関心を持っており、改善案を積極的に検討している様子。今後、全社的な取り組みに繋げられる可能性あり。しかし編集長の意向に反しており、実施は難しい。</p>
-<h2>赤羽 義人</h2>
-      <p>特に問題なし。同じ宮城県出身ということで盛り上がった。現在の職務において安定した成果を出しており、面談時も落ち着いた態度であった。更新後のパスワードは地元のプロ野球チームにいる鳥の名前にしたとのこと。各書類の更新が必要。</p>
-<h2>下野 凛</h2>
-      <p>朝に弱く、出勤対応が難しいことからリモートワークを増やしたい旨を希望。体調面や生活リズムへの配慮が必要と考えられるため、柔軟な勤務体制の検討が望ましい。本人の意欲は高く、環境を整えれば成果向上の可能性あり。</p>
-<h2>堀北 大樹</h2>
-      <p>新卒であり、現時点で特に問題は見受けられない。まだ業務経験が浅いため、今後の成長を見守る必要あり。研修・OJTによる支援を継続することが望ましい。</p>
-    </div>
-  </div>
-  
-   <!-- 戻るボタン -->
-  <div class="back-btn-wrap">
-    <button class="back-btn" onclick="history.back()">戻る</button>
-  </div>
+  </main>
+
+  <footer>
+    <p>© 2025 狭間書房　（24/33）</p>
+  </footer>
 </body>
 </html>
